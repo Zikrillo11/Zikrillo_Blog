@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Zikrillo_Blog.BLL/Zikrillo_Blog.BLL.csproj" />
+  <Project Path="Zikrillo_Blog.DAL/Zikrillo_Blog.DAL.csproj" />
+  <Project Path="Zikrillo_Blog.Domain/Zikrillo_Blog.Domain.csproj" />
+  <Project Path="Zikrillo_Blog.Shared/Zikrillo_Blog.Shared.csproj" />
+  <Project Path="Zikrillo_Blog/Zikrillo_Blog.csproj" />
+</Solution>
