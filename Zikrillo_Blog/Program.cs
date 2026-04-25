@@ -1,7 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using Zikrillo_Blog.BLL.Interfaces;
+using Zikrillo_Blog.BLL.Services;
 using Zikrillo_Blog.DAL.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Services
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IPostLikeService, PostLikeService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
