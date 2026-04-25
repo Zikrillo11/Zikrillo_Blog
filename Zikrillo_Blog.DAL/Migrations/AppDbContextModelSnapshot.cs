@@ -119,6 +119,8 @@ namespace Zikrillo_Blog.DAL.Migrations
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("Title");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Posts");
@@ -126,30 +128,27 @@ namespace Zikrillo_Blog.DAL.Migrations
 
             modelBuilder.Entity("Zikrillo_Blog.Domain.Entites.PostLike", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PostId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
-
-                    b.Property<Guid>("PostId")
-                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "PostId");
 
                     b.HasIndex("PostId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("PostLikes");
                 });
@@ -188,6 +187,9 @@ namespace Zikrillo_Blog.DAL.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -239,7 +241,7 @@ namespace Zikrillo_Blog.DAL.Migrations
                         .IsRequired();
 
                     b.HasOne("Zikrillo_Blog.Domain.Entites.User", "User")
-                        .WithMany()
+                        .WithMany("PostLikes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -264,6 +266,8 @@ namespace Zikrillo_Blog.DAL.Migrations
             modelBuilder.Entity("Zikrillo_Blog.Domain.Entites.User", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("PostLikes");
 
                     b.Navigation("Posts");
                 });
