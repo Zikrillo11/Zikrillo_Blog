@@ -22,9 +22,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
+    <PackageReference Include="UmbracoCms.Core" Version="8.18.15" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Zikrillo_Blog.BLL\Zikrillo_Blog.BLL.csproj" />
     <ProjectReference Include="..\Zikrillo_Blog.DAL\Zikrillo_Blog.DAL.csproj" />
   </ItemGroup>
 
