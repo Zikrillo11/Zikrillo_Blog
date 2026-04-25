@@ -110,16 +110,16 @@ namespace Zikrillo_Blog.DAL.Migrations
                 name: "PostLikes",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     PostId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PostLikes", x => x.Id);
+                    table.PrimaryKey("PK_PostLikes", x => new { x.UserId, x.PostId });
                     table.ForeignKey(
                         name: "FK_PostLikes_Posts_PostId",
                         column: x => x.PostId,
@@ -150,19 +150,25 @@ namespace Zikrillo_Blog.DAL.Migrations
                 column: "PostId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PostLikes_UserId",
-                table: "PostLikes",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Posts_CategoryId",
                 table: "Posts",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Posts_Title",
+                table: "Posts",
+                column: "Title");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserId",
                 table: "Posts",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
         }
 
         /// <inheritdoc />
