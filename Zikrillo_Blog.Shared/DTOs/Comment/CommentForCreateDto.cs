@@ -2,6 +2,6 @@
 
 public class CommentForCreateDto
 {
-    public string Text { get; set; }
+    public string Content { get; set; }   // 👈 o‘zgartirdik
     public Guid PostId { get; set; }
 }

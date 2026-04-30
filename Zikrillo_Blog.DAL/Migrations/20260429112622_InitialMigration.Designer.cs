@@ -12,7 +12,7 @@ using Zikrillo_Blog.DAL.Data;
 namespace Zikrillo_Blog.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260425100657_InitialMigration")]
+    [Migration("20260429112622_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
