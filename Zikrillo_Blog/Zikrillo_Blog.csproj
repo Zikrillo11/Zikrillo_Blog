@@ -11,26 +11,29 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="16.1.1" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
-    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.6">
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.6">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.1" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.1" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.17.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Zikrillo_Blog.BLL\Zikrillo_Blog.BLL.csproj" />
     <ProjectReference Include="..\Zikrillo_Blog.DAL\Zikrillo_Blog.DAL.csproj" />
+    <ProjectReference Include="..\Zikrillo_Blog.Domain\Zikrillo_Blog.Domain.csproj" />
+    <ProjectReference Include="..\Zikrillo_Blog.Shared\Zikrillo_Blog.Shared.csproj" />
   </ItemGroup>
 
 </Project>
