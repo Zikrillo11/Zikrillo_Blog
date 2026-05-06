@@ -1,0 +1,347 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="utf-8" />
+    <title>Zikrillo_Blog Admin Panel</title>
+    <style>
+            :root {
+                --bg-dark: #1e1e1e;
+                --bg-sidebar: #252525;
+                --bg-card: #2d2d2d;
+                --bg-input: #333333;
+                --text-main: #ffffff;
+                --text-muted: #a0a0a0;
+                --accent-blue: #378ADD;
+                --accent-green: #4caf50;
+                --accent-orange: #ff9800;
+                --accent-red: #e24b4a;
+                --border: #3d3d3d;
+                --radius: 12px;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-family: 'Segoe UI', sans-serif;
+            }
+
+            body {
+                background: var(--bg-dark);
+                color: var(--text-main);
+                height: 100vh;
+                overflow: hidden;
+            }
+
+            .layout {
+                display: flex;
+                height: 100vh;
+            }
+
+            /* Sidebar */
+            .sidebar {
+                width: 260px;
+                background: var(--bg-sidebar);
+                border-right: 1px solid var(--border);
+                display: flex;
+                flex-direction: column;
+            }
+
+            .logo {
+                padding: 30px 20px;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .logo-title {
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .logo-sub {
+                font-size: 12px;
+                color: var(--text-muted);
+            }
+
+            .nav {
+                padding: 20px 10px;
+                flex: 1;
+            }
+
+            .nav-item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px 15px;
+                border-radius: var(--radius);
+                cursor: pointer;
+                color: var(--text-muted);
+                transition: 0.3s;
+                margin-bottom: 5px;
+            }
+
+                .nav-item:hover, .nav-item.active {
+                    background: var(--bg-card);
+                    color: var(--text-main);
+                }
+
+            .nav-badge {
+                margin-left: auto;
+                background: var(--accent-red);
+                padding: 2px 8px;
+                border-radius: 10px;
+                font-size: 11px;
+            }
+
+            /* Main Content */
+            .main {
+                flex: 1;
+                padding: 40px;
+                overflow-y: auto;
+            }
+
+            .page {
+                display: none;
+            }
+
+                .page.active {
+                    display: block;
+                }
+
+            .header {
+                margin-bottom: 30px;
+            }
+
+                .header h1 {
+                    font-size: 24px;
+                }
+
+                .header p {
+                    color: var(--text-muted);
+                    margin-top: 5px;
+                }
+
+            /* Stats Grid */
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+                margin-bottom: 40px;
+            }
+
+            .stat-card {
+                background: var(--bg-card);
+                padding: 20px;
+                border-radius: var(--radius);
+                border: 1px solid var(--border);
+            }
+
+            .stat-label {
+                font-size: 12px;
+                color: var(--text-muted);
+                text-transform: uppercase;
+            }
+
+            .stat-val {
+                font-size: 28px;
+                font-weight: bold;
+                margin: 10px 0;
+            }
+
+            .stat-up {
+                color: var(--accent-green);
+                font-size: 12px;
+            }
+
+            /* Post List */
+            .post-item {
+                background: var(--bg-card);
+                padding: 15px 20px;
+                border-radius: var(--radius);
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 10px;
+                border: 1px solid var(--border);
+            }
+
+            .post-title {
+                flex: 1;
+                font-size: 15px;
+            }
+
+            .badge {
+                padding: 4px 12px;
+                border-radius: 20px;
+                font-size: 11px;
+            }
+
+            .badge-pub {
+                background: rgba(76, 175, 80, 0.1);
+                color: var(--accent-green);
+            }
+
+            .badge-draft {
+                background: rgba(255, 152, 0, 0.1);
+                color: var(--accent-orange);
+            }
+
+            /* Forms */
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-label {
+                display: block;
+                margin-bottom: 8px;
+                font-size: 14px;
+                color: var(--text-muted);
+            }
+
+            .form-input {
+                width: 100%;
+                background: var(--bg-input);
+                border: 1px solid var(--border);
+                padding: 12px;
+                border-radius: var(--radius);
+                color: white;
+                outline: none;
+            }
+
+                .form-input:focus {
+                    border-color: var(--accent-blue);
+                }
+
+            .btn-primary {
+                background: var(--accent-blue);
+                color: white;
+                border: none;
+                padding: 12px 25px;
+                border-radius: var(--radius);
+                cursor: pointer;
+                font-weight: 600;
+            }
+
+            .btn-outline {
+                background: transparent;
+                border: 1px solid var(--border);
+                color: white;
+                padding: 12px 25px;
+                border-radius: var(--radius);
+                cursor: pointer;
+            }
+
+            /* Utils */
+            .act-btn {
+                background: var(--bg-input);
+                border: 1px solid var(--border);
+                color: white;
+                padding: 6px 15px;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+    </style>
+</head>
+<body>
+
+    <div class="layout">
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-title">Zikrillo_Blog</div>
+                <div class="logo-sub">Admin panel</div>
+            </div>
+            <nav class="nav">
+                <div class="nav-item active" onclick="show('dashboard', this)"><span>◈</span> Dashboard</div>
+                <div class="nav-item" onclick="show('posts', this)"><span>◻</span> Postlar</div>
+                <div class="nav-item" onclick="show('new-post', this)"><span>＋</span> Yangi post</div>
+                <div class="nav-item" onclick="show('categories', this)"><span>◑</span> Kategoriyalar</div>
+                <div class="nav-item" onclick="show('comments', this)"><span>◎</span> Kommentariyalar <span class="nav-badge">3</span></div>
+                <div class="nav-item" onclick="show('stats', this)"><span>▱</span> Statistika</div>
+            </nav>
+        </div>
+
+        <div class="main">
+            <!-- Dashboard -->
+            <div class="page active" id="page-dashboard">
+                <div class="header">
+                    <h1>Dashboard</h1>
+                    <p>Xush kelibsiz, Admin!</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="stat-label">Jami postlar</div><div class="stat-val">24</div><div class="stat-up">+2 bu hafta</div></div>
+                    <div class="stat-card"><div class="stat-label">Ko'rishlar</div><div class="stat-val">12,480</div><div class="stat-up">+340 bugun</div></div>
+                    <div class="stat-card"><div class="stat-label">Kommentlar</div><div class="stat-val">138</div><div style="color:var(--accent-orange)">3 kutmoqda</div></div>
+                    <div class="stat-card"><div class="stat-label">Kategoriyalar</div><div class="stat-val">6</div><div class="stat-up">barqaror</div></div>
+                </div>
+                <h3>So'nggi postlar</h3>
+                <div class="post-list" style="margin-top:20px">
+                    <div class="post-item"><div class="post-title">JavaScript closures haqida</div><span class="badge badge-pub">Chop etilgan</span><span style="color:var(--text-muted); font-size:12px">3 kun oldin</span></div>
+                    <div class="post-item"><div class="post-title">CSS Grid vs Flexbox</div><span class="badge badge-pub">Chop etilgan</span><span style="color:var(--text-muted); font-size:12px">1 hafta oldin</span></div>
+                </div>
+            </div>
+
+            <!-- Postlar listi -->
+            <div class="page" id="page-posts">
+                <div class="header">
+                    <h1>Postlar</h1>
+                    <p>Barcha blog postlarini boshqaring</p>
+                </div>
+                <div style="display:flex; gap:10px; margin-bottom:20px">
+                    <input type="text" class="form-input" placeholder="Post qidirish..." style="flex:1">
+                    <button class="btn-primary" onclick="show('new-post')">+ Yangi post</button>
+                </div>
+                <div class="post-list">
+                    <div class="post-item">
+                        <div class="post-title">JavaScript closures haqida</div>
+                        <span class="badge badge-pub">Chop etilgan</span>
+                        <span style="color:var(--text-muted); font-size:12px">1.2k ko'rish</span>
+                        <button class="act-btn">Tahrir</button>
+                        <button class="act-btn" style="color:var(--accent-red)">O'chir</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Yangi post -->
+            <div class="page" id="page-new-post">
+                <div class="header">
+                    <h1>Yangi post</h1>
+                    <p>Yangi maqola yozing</p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Sarlavha</label>
+                    <input type="text" class="form-input" placeholder="Post sarlavhasi...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Kategoriya</label>
+                    <select class="form-input">
+                        <option>Dasturlash</option>
+                        <option>Web dizayn</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Mazmun</label>
+                    <textarea class="form-input" rows="10" placeholder="Post mazmunini yozing..."></textarea>
+                </div>
+                <div style="display:flex; gap:10px">
+                    <button class="btn-primary">Chop etish</button>
+                    <button class="btn-outline">Qoralama saqlash</button>
+                </div>
+            </div>x
+        </div>
+    </div>
+
+    <script>
+            function show(id, el) {
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+                document.getElementById('page-' + id).classList.add('active');
+                if (el) el.classList.add('active');
+            }
+    </script>
+
+</body>
+</html>

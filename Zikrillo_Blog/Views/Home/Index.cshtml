@@ -1,8 +1,280 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Zikrillo_Blog.Shared.DTOs.Post
+@model List<PostForResultDto>
+
+@{
+    Layout = null; // To'liq nazorat qilish uchun layoutni vaqtincha o'chiramiz
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zikrillo | Geeky Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+            @@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap');
+
+            :root {
+                --dark-bg: #0d0d0d;
+                --card-bg: #151515;
+                --primary-green: #00bfa5; /* Rasmda ko'ringan yashil-moviy rang */
+                --text-white: #ffffff;
+                --text-gray: #a0a0a0;
+            }
+
+            body {
+                background-color: var(--dark-bg);
+                color: var(--text-white);
+                font-family: 'Inter', sans-serif;
+                margin: 0;
+                overflow-x: hidden;
+            }
+
+            /* 1. Navigatsiya paneli (Rasm tepadagi qismi) */
+            nav {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 20px 8%;
+                background: rgba(13, 13, 13, 0.95);
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+            }
+
+            .logo {
+                font-size: 24px;
+                font-weight: 800;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+                .logo span {
+                    color: var(--primary-green);
+                }
+
+            .nav-links {
+                display: flex;
+                gap: 25px;
+                align-items: center;
+            }
+
+                .nav-links a {
+                    color: var(--text-white);
+                    text-decoration: none;
+                    font-size: 14px;
+                    font-weight: 500;
+                    transition: 0.3s;
+                }
+
+                    .nav-links a:hover {
+                        color: var(--primary-green);
+                    }
+
+                .nav-links .active-btn {
+                    background: var(--primary-green);
+                    padding: 8px 20px;
+                    border-radius: 20px;
+                    color: var(--dark-bg) !important;
+                    font-weight: 700;
+                }
+
+            .social-icons {
+                display: flex;
+                gap: 15px;
+                border-left: 1px solid #333;
+                padding-left: 15px;
+                color: var(--text-gray);
+            }
+
+            /* 2. Hero Section (Asosiy banner) */
+            .hero {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 80px 8%;
+                min-height: 80vh;
+                position: relative;
+            }
+
+            .hero-text {
+                flex: 1;
+            }
+
+                .hero-text h1 {
+                    font-size: 75px;
+                    line-height: 1.1;
+                    margin: 0;
+                    font-weight: 800;
+                }
+
+                    .hero-text h1 span {
+                        color: var(--primary-green);
+                    }
+
+                .hero-text p {
+                    color: var(--text-gray);
+                    font-size: 18px;
+                    margin: 30px 0;
+                    max-width: 500px;
+                    line-height: 1.6;
+                }
+
+            .hero-btn {
+                background: var(--primary-green);
+                color: var(--dark-bg);
+                padding: 15px 35px;
+                border-radius: 30px;
+                text-decoration: none;
+                font-weight: 700;
+                display: inline-block;
+                transition: 0.3s;
+            }
+
+                .hero-btn:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 20px rgba(0, 191, 165, 0.3);
+                }
+
+            /* 3. Rasm va suzuvchi piktogrammalar */
+            .hero-img-container {
+                flex: 1;
+                position: relative;
+                display: flex;
+                justify-content: center;
+            }
+
+            .main-img {
+                width: 100%;
+                max-width: 500px;
+                position: relative;
+                z-index: 5;
+            }
+
+            .tech-badge {
+                position: absolute;
+                background: var(--card-bg);
+                border: 1px solid #333;
+                padding: 15px;
+                border-radius: 15px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+                animation: float 4s infinite ease-in-out;
+                z-index: 10;
+            }
+
+            @@keyframes float {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-20px);
+                }
+            }
+
+            /* 4. Blog Posts List */
+            .blog-section {
+                padding: 100px 8%;
+            }
+
+            .blog-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                gap: 30px;
+            }
+
+            .post-card {
+                background: var(--card-bg);
+                padding: 30px;
+                border-radius: 20px;
+                border: 1px solid #222;
+                transition: 0.3s;
+            }
+
+                .post-card:hover {
+                    border-color: var(--primary-green);
+                }
+
+                .post-card h3 {
+                    font-size: 24px;
+                    margin-bottom: 15px;
+                }
+
+                .post-card p {
+                    color: var(--text-gray);
+                    font-size: 15px;
+                }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <i class="fas fa-terminal"></i> <span>Zikrillo</span>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="active-btn">Home</a>
+            <a href="#">About</a>
+            <a href="#">Projects</a>
+            <a href="#">Contact</a>
+            <div class="social-icons">
+                <i class="fab fa-github"></i>
+                <i class="fab fa-linkedin"></i>
+                <i class="fab fa-telegram"></i>
+            </div>
+            <i class="fas fa-search" style="color: var(--primary-green); margin-left: 10px;"></i>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Welcome <span>!</span></h1>
+            <h1>to Zikrillo's Blog</h1>
+            <p>Full Stack Software Developer focused on .NET Ecosystem. Sharing my knowledge about Backend Architecture and Modern Web.</p>
+            <a href="#posts" class="hero-btn">Know About Me</a>
+        </div>
+
+        <div class="hero-img-container">
+            <!-- Asosiy rasm (O'zingiznikini qo'ying) -->
+            <img src="https://geeky-nextjs.vercel.app/_next/image?url=%2Fimages%2Fbanner-img.png&w=640&q=75" class="main-img" alt="Zikrillo">
+
+            <!-- Suzuvchi belgilar (Rasmda ko'ringanidek) -->
+            <div class="tech-badge" style="top: 10%; right: 0;">
+                <i class="fab fa-microsoft" style="color: #00a4ef; font-size: 24px;"></i>
+                <small>C#</small>
+            </div>
+            <div class="tech-badge" style="bottom: 20%; left: 0; animation-delay: 1s;">
+                <i class="fas fa-database" style="color: #f29111; font-size: 24px;"></i>
+                <small>SQL</small>
+            </div>
+            <div class="tech-badge" style="top: 40%; left: -20px; animation-delay: 2s;">
+                <i class="fas fa-code" style="color: #45a29e; font-size: 24px;"></i>
+                <small>.NET</small>
+            </div>
+        </div>
+    </section>
+
+    <section class="blog-section" id="posts">
+        <h2 style="font-size: 36px; margin-bottom: 50px;">Latest <span>Posts</span></h2>
+        <div class="blog-grid">
+            @if (Model != null)
+            {
+                @foreach (var post in Model)
+                {
+                    <div class="post-card">
+                        <h3>@post.Title</h3>
+                        <p>@post.Content.Substring(0, Math.Min(post.Content.Length, 100))...</p>
+                        <a href="#" style="color: var(--primary-green); text-decoration: none; font-weight: bold; display: block; margin-top: 20px;">Read More →</a>
+                    </div>
+                }
+            }
+        </div>
+    </section>
+
+</body>
+</html>
